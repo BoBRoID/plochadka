@@ -1,0 +1,19 @@
+#select-author {
+	min-width: 200px;
+}
+
+.wrap-content {
+	display: none;
+}
+
+.wrap-content fieldset.input-full-width {
+	float: left;
+	width: 100%;
+	margin: 20px 0;
+}
+
+.badge_item {
+	float: left;
+	width: 100%;
+	margin: 10px 0;
+}

@@ -4,8 +4,6 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
@@ -101,11 +99,7 @@ $header_version = 2;
 <header id="navbar">
     <div class="container">
         <a class="logo pull-left" href="/" title="Home">
-            <?php if (!empty(\Yii::$app->params['logo'])) { ?>
-                <img src="<?=\Yii::$app->params['logo']?>" alt="Logo" />
-            <?php } else { ?>
-                <img src="/images/logo.png" alt="Logo" />
-            <?php } ?>
+            <img src="<?=!empty(\Yii::$app->params['logo']) ? \Yii::$app->params['logo'] : '/images/logo.png'?>" alt="Logo" />
         </a>
 
         <div id="version-two-menu" class="main_menu">
@@ -114,7 +108,7 @@ $header_version = 2;
         </div>
 
         <section id="new-post" class="block block-crystal-block" style="margin-top: 13px !important">
-            <a href="<?php //echo $new_post; ?>" class="btn button"><?=\Yii::t('site', 'Разместить обьявление!')?></a>
+            <a href="/createpost" class="btn button"><?=\Yii::t('site', 'Разместить обьявление!')?></a>
         </section>
         </div>
 </header>

@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
 
+use app\models\Category;
+use app\models\Post;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -72,7 +74,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        return $this->render('index', [
+            'posts'         =>  Post::find()->all(),
+            'categories'    =>  Category::find()->where(['parent' => 0])->all()
+        ]);
+    }
+
+    public function actionCreatepost(){
+
     }
 
     /**

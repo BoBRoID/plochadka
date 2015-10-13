@@ -1,8 +1,8 @@
 <?php
 namespace frontend\controllers;
 
-use app\models\Category;
-use app\models\Post;
+use common\models\Category;
+use common\models\Post;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -81,7 +81,28 @@ class SiteController extends Controller
     }
 
     public function actionCreatepost(){
+        /*if(\Yii::$app->user->isGuest){
+            return $this->run('site/login');
+        }*/
 
+        $post = new Post();
+
+        $data = \Yii::$app->request->post("Post");
+
+        if(!empty($data)){
+            $post->load(\Yii::$app->request->post());
+        }
+
+        if(!empty($data) && $post->validate() && $post->save()){
+            return $this->render('create_post_success', [
+                'post'          =>  $post,
+            ]);
+        }else{
+            return $this->render('create_post', [
+                'post'          =>  $post,
+                'categoryList'  =>  Category::getList(),
+            ]);
+        }
     }
 
     /**
@@ -91,7 +112,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
+        if (!\Yii::$app->user->isGuest && \Yii::$app->request->url == 'login') {
             return $this->goHome();
         }
 

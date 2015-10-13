@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Category;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -51,6 +52,26 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
         ];
+    }
+
+
+    public function actionCreatecategory(){
+        $category = new Category();
+
+        $data = \Yii::$app->request->post("Category");
+
+        if(!empty($data)){
+            $category->load(\Yii::$app->request->post());
+        }
+
+        if(!empty($data) && $category->validate() && $category->save()){
+            return $this->render('success_create_category');
+        }
+
+        return $this->render('new_category', [
+            'category'  =>  $category,
+            'parents'   =>  Category::getList()
+        ]);
     }
 
     public function actionIndex()

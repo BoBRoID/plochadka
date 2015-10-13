@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
@@ -35,7 +35,7 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'link', 'image'], 'required'],
+            [['parent', 'link'], 'required'],
             [['parent', 'postPrice'], 'integer'],
             [['description', 'keywords'], 'string'],
             [['created'], 'safe'],
@@ -45,6 +45,16 @@ class Category extends \yii\db\ActiveRecord
 
     public function getSubcategories(){
         return self::find()->where(['parent' => $this->id])->all();
+    }
+
+    public static function getList(){
+        $list = [];
+
+        foreach(self::find()->select(['id', 'name'])->each() as $category){
+            $list[$category->id] = $category->name;
+        }
+
+        return $list;
     }
 
     /**

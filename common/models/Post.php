@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use Yii;
 
@@ -38,11 +38,12 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category', 'author', 'title', 'content'], 'required'],
+            [['category', 'title', 'content'], 'required'],
             [['category', 'author', 'price', 'deleted'], 'integer'],
             [['premium', 'created'], 'safe'],
             [['content'], 'string'],
-            [['title', 'image', 'category_color', 'category_icon', 'phone', 'email'], 'string', 'max' => 255]
+            [['email'], 'email'],
+            [['title', 'image', 'category_color', 'category_icon', 'phone'], 'string', 'max' => 255]
         ];
     }
 
@@ -67,5 +68,12 @@ class Post extends \yii\db\ActiveRecord
             'phone' => 'Phone',
             'email' => 'Email',
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        $this->author = isset(\Yii::$app->user->identity['id']) ? \Yii::$app->user->identity['id'] : 0;
+
+        return parent::beforeSave($insert);
     }
 }

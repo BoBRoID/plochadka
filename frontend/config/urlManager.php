@@ -7,6 +7,6 @@ return [
         ''                  =>  'site/index',
         'gii'               =>  'gii/index',
         'gii/<action>'      =>  'gii/<action>',
-        '<action:(createpost)>'          =>  'site/<action>'
+        '<action:(createpost|createcategory)>'          =>  'site/<action>'
     ]
 ];

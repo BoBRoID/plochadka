@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $email
  * @property string $password
+ * @property string $username
  * @property string $created
  * @property integer $deleted
  * @property string $phone
@@ -17,6 +18,8 @@ use Yii;
  */
 class Author extends \yii\db\ActiveRecord
 {
+    public $password2;
+
     /**
      * @inheritdoc
      */
@@ -31,7 +34,7 @@ class Author extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password', 'phone'], 'required'],
+            [['email', 'password', 'username'], 'required'],
             [['created'], 'safe'],
             [['deleted', 'money'], 'integer'],
             [['email', 'password', 'phone'], 'string', 'max' => 255]
@@ -44,13 +47,15 @@ class Author extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'email' => 'Email',
-            'password' => 'Password',
-            'created' => 'Created',
-            'deleted' => 'Deleted',
-            'phone' => 'Phone',
-            'money' => 'Money',
+            'id'        => \Yii::t('author', 'ID'),
+            'email'     => \Yii::t('author', 'Email'),
+            'username'  => \Yii::t('author', 'Username'),
+            'password'  => \Yii::t('author', 'Password'),
+            'password2' => \Yii::t('author', 'Password confirmation'),
+            'created'   => \Yii::t('author', 'Created'),
+            'deleted'   => \Yii::t('author', 'Deleted'),
+            'phone'     => \Yii::t('author', 'Phone'),
+            'money'     => \Yii::t('author', 'Money'),
         ];
     }
 }

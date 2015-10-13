@@ -1,5 +1,5 @@
 <?php
-namespace common\models;
+namespace frontend\models;
 
 use Yii;
 use yii\base\NotSupportedException;
@@ -12,17 +12,19 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
- * @property string $password_hash
+ * @property string $password
  * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property string $password write-only password
+ *
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $password2;
+
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
@@ -31,7 +33,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function tableName()
     {
-        return '{{%user}}';
+        return 'authors';
     }
 
     /**
@@ -50,8 +52,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['email', 'password', 'username'], 'required'],
+            [['email'], 'email'],
+            [['deleted', 'money'], 'integer'],
+            [['email', 'password', 'phone'], 'string', 'max' => 255]
         ];
     }
 
@@ -60,7 +64,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['id' => $id, 'deleted' => '0']);
     }
 
     /**
@@ -79,7 +83,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username, 'deleted' => '0']);
     }
 
     /**
@@ -149,7 +153,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->password);
     }
 
     /**
@@ -159,7 +163,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+        $this->password = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
@@ -184,5 +188,19 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function signup(){
+        if($this->password != $this->password2){
+            echo 'password: ', $this->password, ', password2: ', $this->password2;
+            return $this->addError('password2', 'Пароли не совпадают!');
+        }
+
+        if($this->validate() && $this->save()){
+            return $this;
+        }
+
+        return [];
+
     }
 }

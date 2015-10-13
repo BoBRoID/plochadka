@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
@@ -36,7 +37,11 @@ $header_version = 2;
                     <a href="/account" class="ctools-use-modal ctools-modal-ctools-ajax-register-style" title="Login"><?=\Yii::t('site', 'Мой аккаунт')?></a>
                 </li>
                 <li class="last">
-                    <a href="/logout" class="ctools-use-modal ctools-modal-ctools-ajax-register-style" title="Logout"><?=\Yii::t('site', 'Выйти')?></a>
+                    <?=Html::a(\Yii::t('site', 'Выйти'), Url::to('/logout'), [
+                        'data-method'   =>  'post',
+                        'class'         =>  'ctools-use-modal ctools-modal-ctools-ajax-register-style',
+                        'title'         =>  \Yii::t('site', 'Выйти')
+                    ])?>
                 </li>
                 <?php } else { ?>
                     <li class="first">

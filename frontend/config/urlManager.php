@@ -5,8 +5,6 @@ return [
     'showScriptName'    =>  false,
     'rules'             =>  [
         ''                  =>  'site/index',
-        'gii'               =>  'gii/index',
-        'gii/<action>'      =>  'gii/<action>',
-        '<action:(createpost|createcategory)>'          =>  'site/<action>'
+        '<action>'          =>  'site/<action>'
     ]
 ];

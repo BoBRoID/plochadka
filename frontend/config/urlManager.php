@@ -5,6 +5,7 @@ return [
     'showScriptName'    =>  false,
     'rules'             =>  [
         ''                  =>  'site/index',
-        '<action>'          =>  'site/<action>'
+        '<action:(login|logout|register|accont|createpost)>'          =>  'site/<action>',
+        '<url:(.*)>'    =>  'site/renderpage'
     ]
 ];

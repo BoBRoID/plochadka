@@ -47,6 +47,27 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionRenderpage($url){
+        $category = Category::findOne(['link'   =>  $url]);
+
+        if(empty($category)){
+            return $this->run('site/error');
+        }
+
+        $subcategories = Category::findAll(['parent' => $category->id]);
+        $posts = Post::findAll(['category' => $category->id]);
+
+
+        return $this->render('category', [
+            'category'  =>  $category,
+            'subcategories'=>$subcategories,
+            'postsCount'    =>  sizeof($posts),
+            'posts'         =>  $posts,
+            'premiumPosts'  =>  \common\models\Post::find()->where(['>', 'premium', date('d-m-Y H:i:s')])->andWhere(['category' => $category->id])->all()
+
+        ]);
+    }
+
     /**
      * @inheritdoc
      */

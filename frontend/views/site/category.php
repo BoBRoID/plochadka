@@ -59,23 +59,18 @@
                             </div>
                         <?php } ?>
                     </div>
-                    <?=$this->registerJsFile('/js/jquery.carouFredSel-6.2.1-packed.js')?>
-                    <script>
-                        $(document).ready(function () {
-                            $.('#projects-carousel').carouFredSel({
+                    <?=$this->registerJsFile('/js/jquery.carouFredSel-6.2.1-packed.js', ['depends' => 'yii\web\JqueryAsset'])?>
+                    <?=$this->registerJs("$('#projects-carousel').carouFredSel({
                                 auto: false,
                                 prev: '#carousel-prev',
                                 next: '#carousel-next',
-                                pagination: "#carousel-pagination",
+                                pagination: \"#carousel-pagination\",
                                 mousewheel: true,
                                 swipe: {
-                                    onMouse: true,
+                        onMouse: true,
                                     onTouch: true
                                 }
-                            });
-
-                        });
-                    </script>
+                            });")?>
                 </div>
 
                 <div class="pane">

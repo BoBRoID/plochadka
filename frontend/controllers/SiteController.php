@@ -97,6 +97,14 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionPost($id){
+        $post = Post::findOne(['id' => $id]);
+
+        return $this->render('post', [
+            'post'  =>  $post
+        ]);
+    }
+
     public function actionRegister(){
         $model = new SignupForm();
 

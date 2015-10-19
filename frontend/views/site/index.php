@@ -14,6 +14,27 @@
  * @since FlatAds 1.0
  */
 
+$js = <<<'SCRIPT'
+$('#projects-carousel').carouFredSel({
+    auto: false,
+    prev: '#carousel-prev',
+    next: '#carousel-next',
+    pagination: "#carousel-pagination",
+    mousewheel: true,
+    swipe: {
+        onMouse: true,
+        onTouch: true
+    }
+});
+
+$(function() {
+    $("ul.tabs").tabs("> .pane", {effect: 'fade', fadeIn: 200});
+});
+SCRIPT;
+
+$this->registerJs($js);
+\frontend\assets\FeauteredAdsAsset::register($this);
+
 ?>
 <?=\common\widgets\MapWidget::widget()?>
 
@@ -35,7 +56,7 @@
                 <div id="projects-carousel">
                     <?php foreach($posts as $post){ ?>
                         <div class="ad-box span3">
-                            <a class="ad-image" href="/">
+                            <a class="ad-image" href="/post/<?=$post->id?>">
                                 <img class="add-box-main-image" src="<?=$post->image?>">
                             </a>
 
@@ -56,23 +77,6 @@
                         </div>
                     <?php } ?>
                 </div>
-                <?=$this->registerJsFile('/js/jquery.carouFredSel-6.2.1-packed.js')?>
-                <script>
-                    $(document).ready(function () {
-                        $('#projects-carousel').carouFredSel({
-                            auto: false,
-                            prev: '#carousel-prev',
-                            next: '#carousel-next',
-                            pagination: "#carousel-pagination",
-                            mousewheel: true,
-                            swipe: {
-                                onMouse: true,
-                                onTouch: true
-                            }
-                        });
-
-                    });
-                </script>
             </div>
 
             <div class="pane">

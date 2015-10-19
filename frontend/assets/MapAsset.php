@@ -25,6 +25,7 @@ class MapAsset extends AssetBundle{
 
     public $depends = [
         'yii\web\JqueryAsset',
-        'frontend\assets\LayerSliderAsset'
+        'frontend\assets\LayerSliderAsset',
+        'frontend\assets\JqueryUIAsset'
     ];
 }

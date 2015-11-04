@@ -34,7 +34,7 @@ $header_version = 2;
                 <?php
                 if (!\Yii::$app->user->isGuest){ ?>
                 <li class="first">
-                    <a href="/account" class="ctools-use-modal ctools-modal-ctools-ajax-register-style" title="Login"><?=\Yii::t('site', 'Мой аккаунт')?></a>
+                    <a href="/myaccount" class="ctools-use-modal ctools-modal-ctools-ajax-register-style" title="Login"><?=\Yii::t('site', 'Мой аккаунт')?></a>
                 </li>
                 <li class="last">
                     <?=Html::a(\Yii::t('site', 'Выйти'), Url::to('/logout'), [

@@ -37,7 +37,6 @@ class AppAsset extends AssetBundle
         'http://fonts.googleapis.com/css?family=Source+Sans+Pro%3A300%2C400%2C700%2C300italic%2C400italic%2C700italic%7CBitter%3A400%2C700&#038;subset=latin%2Clatin-ext',
         'css/genericons.css',
         'css/style.css',
-        'css/font-awesome.min.css',
         'css/chosen.min.css',
         'css/flexslider.css',
         'css/custom.css',
@@ -45,10 +44,12 @@ class AppAsset extends AssetBundle
         'http://fonts.googleapis.com/css?family=Armata&#038;ver=4.0.8',
     ];
     public $js = [
-
+        'js/jquery.tools.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        'yii\web\JqueryAsset',
+        'rmrevin\yii\fontawesome\AssetBundle'
     ];
 }

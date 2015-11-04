@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Author;
 use common\models\Category;
 use common\models\Post;
 use frontend\models\LoginForm;
@@ -168,8 +169,20 @@ class SiteController extends Controller
         }
     }
 
-    public function actionAccount(){
-        return $this->render('account');
+    public function actionMyaccount(){
+        return $this->run('account', ['id' => \Yii::$app->user->identity->id]);
+    }
+
+    public function actionAccount($id){
+        $account = Author::findOne(['id' => $id]);
+
+        if(!$account){
+            return $this->run('error');
+        }
+
+        return $this->render('account', [
+            'account'   =>  $account
+        ]);
     }
 
     /**

@@ -4,7 +4,7 @@ $current = 0;
 <div class="pane latest-ads-holder">
         <?=\yii\widgets\ListView::widget([
             'dataProvider'  =>  new \yii\data\ActiveDataProvider([
-                'query' =>  \common\models\Post::find()->where(['category' => $category])->orderBy('created DESC'),
+                'query' =>  \frontend\models\Post::find()->where(['category' => $category])->orderBy('created DESC'),
                 'pagination'    =>  [
                     'pageSize'  =>  9
                 ]

@@ -1,11 +1,13 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Post;
+use common\models\Author;
 use common\models\Category;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use common\models\LoginForm;
 use yii\filters\VerbFilter;
 
 /**
@@ -18,7 +20,9 @@ class SiteController extends Controller
      */
     public function behaviors()
     {
-        return [
+        return [];
+
+        /*return [
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -39,7 +43,7 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
-        ];
+        ];*/
     }
 
     /**
@@ -68,9 +72,60 @@ class SiteController extends Controller
             return $this->render('success_create_category');
         }
 
-        return $this->render('new_category', [
+        return $this->render('category_edit', [
             'category'  =>  $category,
             'parents'   =>  Category::getList()
+        ]);
+    }
+
+    public function actionEditcategory($id){
+        $category = Category::findOne(['id' => $id]);
+
+        if(!$category){
+            return $this->run('error');
+        }
+
+        if(\Yii::$app->request->post("Category")){
+            $category->attributes = \Yii::$app->request->post("Category");
+            $category->save();
+        }
+
+        return $this->render('category_edit', [
+            'category'  =>  $category,
+            'parents'   =>  Category::getList()
+        ]);
+    }
+
+    public function actionCategories(){
+        return $this->render('categories', [
+            'dataProvider'    =>  new ActiveDataProvider([
+                'query' =>  Category::find(),
+                'pagination'    =>  [
+                    'pageSize'  =>  25
+                ]
+            ])
+        ]);
+    }
+
+    public function actionPosts(){
+        return $this->render('posts', [
+            'dataProvider'    =>  new ActiveDataProvider([
+                'query' =>  Post::find(),
+                'pagination'    =>  [
+                    'pageSize'  =>  25
+                ]
+            ])
+        ]);
+    }
+
+    public function actionAuthors(){
+        return $this->render('authors', [
+            'dataProvider'    =>  new ActiveDataProvider([
+                'query' =>  Author::find(),
+                'pagination'    =>  [
+                    'pageSize'  =>  25
+                ]
+            ])
         ]);
     }
 

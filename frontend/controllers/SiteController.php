@@ -3,7 +3,7 @@ namespace frontend\controllers;
 
 use common\models\Author;
 use common\models\Category;
-use common\models\Post;
+use frontend\models\Post;
 use frontend\models\LoginForm;
 use frontend\models\SignupForm;
 use Yii;
@@ -123,9 +123,9 @@ class SiteController extends Controller
     }
 
     public function actionCreatepost(){
-        /*if(\Yii::$app->user->isGuest){
+        if(\Yii::$app->user->isGuest){
             return $this->run('site/login');
-        }*/
+        }
 
         $post = new Post();
 

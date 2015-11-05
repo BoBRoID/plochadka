@@ -18,7 +18,9 @@
         "yiisoft/yii2": ">=2.0.6",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "rmrevin/yii2-fontawesome": "2.12.*"
+        "rmrevin/yii2-fontawesome": "2.12.*",
+        "kartik-v/yii2-grid": "@dev",
+        "kartik-v/yii2-mpdf": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

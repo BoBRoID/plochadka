@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
 
@@ -12,38 +12,7 @@ use Yii;
  * @property string $link
  * @property integer $deleted
  */
-class PostImage extends \yii\db\ActiveRecord
+class PostImage extends \common\models\PostImage
 {
-    /**
-     * @inheritdoc
-     */
-    public static function tableName()
-    {
-        return 'postsImages';
-    }
 
-    /**
-     * @inheritdoc
-     */
-    public function rules()
-    {
-        return [
-            [['post', 'link'], 'required'],
-            [['post', 'deleted'], 'integer'],
-            [['link'], 'string', 'max' => 255]
-        ];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'post' => 'Post',
-            'link' => 'Link',
-            'deleted' => 'Deleted',
-        ];
-    }
 }

@@ -43,7 +43,7 @@ class Post extends \yii\db\ActiveRecord
             [['premium', 'created'], 'safe'],
             [['content'], 'string'],
             [['email'], 'email'],
-            [['title', 'image', 'category_color', 'category_icon', 'phone'], 'string', 'max' => 255]
+            [['title', 'category_color', 'category_icon', 'phone'], 'string', 'max' => 255]
         ];
     }
 
@@ -59,7 +59,6 @@ class Post extends \yii\db\ActiveRecord
             'premium' => 'Premium',
             'title' => 'Title',
             'content' => 'Content',
-            'image' => 'Image',
             'category_color' => 'Category Color',
             'category_icon' => 'Category Icon',
             'price' => 'Price',
@@ -70,10 +69,4 @@ class Post extends \yii\db\ActiveRecord
         ];
     }
 
-    public function beforeSave($insert)
-    {
-        $this->author = isset(\Yii::$app->user->identity['id']) ? \Yii::$app->user->identity['id'] : 0;
-
-        return parent::beforeSave($insert);
-    }
 }

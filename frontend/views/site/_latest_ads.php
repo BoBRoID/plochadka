@@ -10,15 +10,13 @@ $current = 0;
                 ]
             ]),
             'itemView'  =>  function($model) use (&$current){
-                $current++;
-
                 return $this->render('_post_item_grid', [
                     'item'      =>  $model,
                     'current'   =>  $current
                 ]);
             },
             'itemOptions'   =>  [
-                'class' =>  'ad-box span3 latest-posts-grid'.($current%3 == 0 ? ' first' : '')
+                'class' =>  'ad-box col-xs-3 latest-posts-grid'.($current%3 == 0 ? ' ' : '')
             ],
             'options'  =>  [
                 'class' =>  'latest-ads-grid-holder'

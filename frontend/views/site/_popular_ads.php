@@ -11,7 +11,7 @@ $current = -1;
                 ]
             ]),
             'itemOptions'   =>  [
-                'class' =>  'ad-box span3 random-posts-grid'.($current%3 == 0 ? ' first' : '')
+                'class' =>  'ad-box col-xs-3 random-posts-grid'.($current%3 == 0 ? ' first' : '')
             ],
             'itemView'  =>  function($model) use (&$current){
                 $current++;
@@ -20,7 +20,8 @@ $current = -1;
                     'item'      =>  $model,
                     'current'   =>  $current
                 ]);
-            }
+            },
+            'summary'   =>  '',
         ])?>
     </div>
 </div>

@@ -1,11 +1,15 @@
 <?php
-    $images = \app\models\PostImage::findAll(['post' => $item->id]);
+    $images = \frontend\models\PostImage::findAll(['post' => $item->id]);
 
     if(sizeof($images) > 1){
         $secondImage = $images[1]->link;
     }
 
-    $firstImage = $images[0]->link;
+    if(isset($images[0])){
+        $firstImage = $images[0]->link;
+    }else{
+        $firstImage = '#';
+    }
 
 ?>
 

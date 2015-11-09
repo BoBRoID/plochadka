@@ -78,6 +78,23 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionViewpost($id){
+        $post = Post::findOne(['id' => $id]);
+
+        if(!$post){
+            return $this->run('site/error');
+        }
+
+        if(\Yii::$app->request->post("Post")){
+            $post->attributes = \Yii::$app->request->post("Post");
+            $post->save();
+        }
+
+        return $this->render(\Yii::$app->request->get('act') == 'edit' ? 'post_edit' : 'post', [
+            'post'  =>  $post
+        ]);
+    }
+
     public function actionEditcategory($id){
         $category = Category::findOne(['id' => $id]);
 

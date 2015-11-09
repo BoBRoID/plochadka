@@ -1,3 +1,6 @@
+<h1>
+    Категории
+</h1>
 <?php
 use yii\widgets\ActiveForm;
 

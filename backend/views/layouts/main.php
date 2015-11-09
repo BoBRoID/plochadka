@@ -36,6 +36,21 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label'    =>  'Меню', 'url' => '#', 'items' => [
+            [
+                'label' =>  'Категории',
+                'url'   =>  \yii\helpers\Url::to('/categories')
+            ],
+            [
+                'label' =>  'Посты',
+                'url'   =>  \yii\helpers\Url::to('/posts')
+            ],
+            [
+                'label' =>  'Авторы',
+                'url'   =>  \yii\helpers\Url::to('/authors')
+            ],
+
+        ]]
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];

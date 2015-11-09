@@ -6,5 +6,6 @@ return [
     'rules'             =>  [
         ''              =>  'site/index',
         '<action>'      =>  'site/<action>',
+        'viewpost/<id>' =>  'site/viewpost'
     ]
 ];

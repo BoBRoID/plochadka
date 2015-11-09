@@ -1,7 +1,8 @@
 <?php
 use kartik\grid\GridView;
+//use rmrevin\yii\fontawesome\FA;
+use rmrevin\yii\fontawesome\FontAwesome as FA;
 use yii\helpers\Html;
-
 
 ?>
 <h1>Посты</h1>
@@ -46,20 +47,26 @@ use yii\helpers\Html;
         ],
         [
             'class'     =>  \kartik\grid\ActionColumn::className(),
+            'width'     =>  '100px;',
             'buttons'   =>  [
                 'view'  =>  function($url, $model){
-                    return Html::a(\rmrevin\yii\fontawesome\FA::icon('file-text-o'), \yii\helpers\Url::toRoute(['viewpost/'.$model->id]));
+                    return Html::a(FA::icon('file-text-o'), \yii\helpers\Url::toRoute(['viewpost/'.$model->id]), [
+                        'class' =>  'btn btn-default'
+                    ]);
                 },
                 'update'  =>  function($url, $model){
-                    return Html::a(\rmrevin\yii\fontawesome\FA::icon($model->show == 1 ? 'eye' : 'eye-slash'), '#', [
-                        'onclick'   =>  'moderatePost('.$model->id.'); return false;'
+                    return Html::a(FA::icon($model->show == 1 ? 'eye' : 'eye-slash'), '#', [
+                        'onclick'   =>  'moderatePost('.$model->id.'); return false;',
+                        'class' =>  'btn btn-default'
                     ]);
                 },
                 'delete'  =>  function($url, $model){
-                    return Html::a('s');
+                    return Html::a(FA::icon($model->show == 1 ? 'eye' : 'eye-slash'), '#', [
+                        'class' =>  'btn btn-default'
+                    ]);
                 }
             ],
-            'template'  =>  '{view}{update}{delete}'
+            'template'  =>  '<div class="btn-group btn-group-sm">{view}{update}{delete}</div>'
         ],
     ]
 ]);

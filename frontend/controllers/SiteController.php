@@ -30,7 +30,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'register', 'login', ],
+                        'actions' => ['index', 'register', 'login', 'renderpage', 'post' ],
                         'allow' => true,
                     ],
                     [

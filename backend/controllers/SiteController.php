@@ -113,6 +113,25 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionModeratepost(){
+        if(!\Yii::$app->request->isAjax){
+            return $this->run('site/error');
+        }
+
+        \Yii::$app->response->format = 'json';
+
+        $post = Post::findOne(['id' => \Yii::$app->request->post("post")]);
+
+        if(!$post){
+            return $this->run('site/error');
+        }
+
+        $post->show = ($post->show == 1 ? 0 : 1);
+        $post->save(false);
+
+        return $post->show;
+    }
+
     public function actionCategories(){
         return $this->render('categories', [
             'dataProvider'    =>  new ActiveDataProvider([

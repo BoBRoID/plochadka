@@ -57,7 +57,7 @@ $this->registerJs($js);
                     <?php foreach($posts as $post){ ?>
                         <div class="ad-box span3">
                             <a class="ad-image" href="/post/<?=$post->id?>">
-                                <img class="add-box-main-image" src="<?=$post->image?>">
+                                <img class="add-box-main-image" src="<?=''//$post->image?>">
                             </a>
 
                             <div class="ad-box-content">
@@ -84,7 +84,7 @@ $this->registerJs($js);
                     <div class="list-featured-ads">
                         <div class="list-feat-ad-image">
                             <a class="ad-image" href="/">
-                                <img class="add-box-main-image" src="<?=$post->image?>"/>
+                                <img class="add-box-main-image" src="<?=''//$post->image?>"/>
                             </a>
                         </div>
                         <div class="list-feat-ad-content">

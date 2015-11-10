@@ -4,6 +4,23 @@ use kartik\grid\GridView;
 use rmrevin\yii\fontawesome\FontAwesome as FA;
 use yii\helpers\Html;
 
+$js = <<<'SCRIPT'
+var moderatePost = function(post){
+    $.ajax({
+        url: '/moderatepost',
+        method: "POST",
+        dataType : "json",
+        data: {
+            'post': post
+        },
+        success: function (data, textStatus) {
+
+        }
+    });
+};
+SCRIPT;
+
+$this->registerJs($js, 1);
 ?>
 <h1>Посты</h1>
 <?=GridView::widget([

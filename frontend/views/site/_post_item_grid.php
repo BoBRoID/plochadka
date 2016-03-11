@@ -1,25 +1,23 @@
 <?php
-    $images = \frontend\models\PostImage::findAll(['post' => $item->id]);
+use common\helpers\TextHelper;
+use yii\bootstrap\Html;
+use yii\helpers\Url;
 
-    if(sizeof($images) > 1){
-        $secondImage = $images[1]->link;
-    }
+$images = \frontend\models\PostImage::findAll(['post' => $item->id]);
 
-    if(isset($images[0])){
-        $firstImage = $images[0]->link;
-    }else{
-        $firstImage = '#';
+    if(sizeof($item->photos) > 1){
+        $secondImage = $item->photos[1]->link;
     }
 
 ?>
 
 <a class="ad-image" href="<?=\yii\helpers\Url::toRoute(['post/'.$item->id])?>">
-    <img class="add-box-main-image" src="<?=$firstImage?>"/>
-    <img class="add-box-second-image" src="<?=isset($secondImage) ? $secondImage : $firstImage?>"/>
+    <img class="add-box-main-image" src="<?=$item->photo?>"/>
+    <img class="add-box-second-image" src="<?=isset($secondImage) ? $secondImage : $item->photo?>"/>
 </a>
 <div class="ad-box-content">
-    <a href="<?=\yii\helpers\Url::toRoute(['post/'.$item->id])?>"><?=\common\helpers\TextHelper::limit_text($item->title, 37)?></a>
+    <?=Html::a(TextHelper::limit_text($item->title, 37), Url::toRoute(['post/'.$item->id]))?>
     <div class="add-price">
-        <span><?=$item->price?></span>
+        <?=Html::tag('span', $item->price)?>
     </div>
 </div>

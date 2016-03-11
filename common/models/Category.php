@@ -1,6 +1,7 @@
 <?php
 
 namespace common\models;
+
 use Yii;
 
 /**
@@ -15,11 +16,10 @@ use Yii;
  * @property string $image
  * @property string $created
  * @property integer $postPrice
+ * @property string $color
  */
 class Category extends \yii\db\ActiveRecord
 {
-    public $postsCount = 0;
-
     /**
      * @inheritdoc
      */
@@ -34,12 +34,16 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['parent', 'link'], 'required'],
+            [['parent', 'link', 'image'], 'required'],
             [['parent', 'postPrice'], 'integer'],
             [['description', 'keywords'], 'string'],
             [['created'], 'safe'],
-            [['name', 'link', 'image'], 'string', 'max' => 255]
+            [['name', 'link', 'image', 'color'], 'string', 'max' => 255]
         ];
+    }
+
+    public function getPostsCount(){
+        return Post::find()->where(['show' => 1])->count();
     }
 
     public function getSubcategories(){
@@ -62,15 +66,16 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'parent' => 'Parent',
-            'name' => 'Name',
-            'description' => 'Description',
-            'keywords' => 'Keywords',
-            'link' => 'Link',
-            'image' => 'Image',
-            'created' => 'Created',
-            'postPrice' => 'Post Price',
+            'id' => Yii::t('app', 'ID'),
+            'parent' => Yii::t('app', 'Parent'),
+            'name' => Yii::t('app', 'Name'),
+            'description' => Yii::t('app', 'Description'),
+            'keywords' => Yii::t('app', 'Keywords'),
+            'link' => Yii::t('app', 'Link'),
+            'image' => Yii::t('app', 'Image'),
+            'created' => Yii::t('app', 'Created'),
+            'postPrice' => Yii::t('app', 'Post Price'),
+            'color' => Yii::t('app', 'Color'),
         ];
     }
 }

@@ -8,8 +8,8 @@ class m151005_150722_posts extends Migration
     public function up()
     {
         $this->createTable('posts', [
-            'id'            =>  \yii\db\mysql\Schema::TYPE_INTEGER.' NOT NULL PRIMARY KEY AUTO_INCREMENT',
-            'category'      =>  \yii\db\mysql\Schema::TYPE_INTEGER.' NOT NULL',
+            'id'            =>  \yii\db\mysql\Schema::TYPE_INTEGER.' UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT',
+            'category'      =>  \yii\db\mysql\Schema::TYPE_INTEGER.' UNSIGNED NOT NULL',
             'author'        =>  \yii\db\mysql\Schema::TYPE_INTEGER.' NOT NULL',
             'premium'       =>  \yii\db\mysql\Schema::TYPE_DATETIME.' NOT NULL DEFAULT "0000-00-00 00:00:00"',
             'title'         =>  \yii\db\mysql\Schema::TYPE_STRING.' NOT NULL',
@@ -17,9 +17,9 @@ class m151005_150722_posts extends Migration
             'image'         =>  \yii\db\mysql\Schema::TYPE_STRING.' DEFAULT NULL',
             'category_color'=>  \yii\db\mysql\Schema::TYPE_STRING.' DEFAULT NULL',
             'category_icon' =>  \yii\db\mysql\Schema::TYPE_STRING.' DEFAULT NULL',
-            'price'         =>  \yii\db\mysql\Schema::TYPE_INTEGER.' DEFAULT NULL',
+            'price'         =>  \yii\db\mysql\Schema::TYPE_INTEGER.' UNSIGNED DEFAULT NULL',
             'created'       =>  \yii\db\mysql\Schema::TYPE_TIMESTAMP.' NOT NULL DEFAULT CURRENT_TIMESTAMP',
-            'deleted'       =>  \yii\db\mysql\Schema::TYPE_INTEGER.' NOT NULL DEFAULT 0',
+            'deleted'       =>  \yii\db\mysql\Schema::TYPE_INTEGER.' UNSIGNED NOT NULL DEFAULT 0',
             'phone'         =>  \yii\db\mysql\Schema::TYPE_STRING.' NULL',
             'email'         =>  \yii\db\mysql\Schema::TYPE_STRING.' NULL',
         ]);
@@ -29,9 +29,9 @@ class m151005_150722_posts extends Migration
             'email'         =>  \yii\db\mysql\Schema::TYPE_STRING.' NOT NULL',
             'password'      =>  \yii\db\mysql\Schema::TYPE_STRING.' NOT NULL',
             'created'       =>  \yii\db\mysql\Schema::TYPE_TIMESTAMP.' NOT NULL DEFAULT CURRENT_TIMESTAMP',
-            'deleted'       =>  \yii\db\mysql\Schema::TYPE_INTEGER.' NOT NULL DEFAULT 0',
+            'deleted'       =>  \yii\db\mysql\Schema::TYPE_INTEGER.' UNSIGNED NOT NULL DEFAULT 0',
             'phone'         =>  \yii\db\mysql\Schema::TYPE_STRING.' NOT NULL',
-            'money'         =>  \yii\db\mysql\Schema::TYPE_INTEGER.' DEFAULT 0',
+            'money'         =>  \yii\db\mysql\Schema::TYPE_INTEGER.' UNSIGNED NOT NULL DEFAULT 0',
         ]);
 
         $this->createTable('categories', [

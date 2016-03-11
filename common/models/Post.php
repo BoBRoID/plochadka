@@ -24,6 +24,9 @@ use Yii;
  */
 class Post extends \yii\db\ActiveRecord
 {
+
+    private $_photos = [];
+
     /**
      * @inheritdoc
      */

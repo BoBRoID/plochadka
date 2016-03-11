@@ -19,7 +19,6 @@ class FeauteredAdsAsset extends AssetBundle{
 
     public $js = [
         '/js/jquery.carouFredSel-6.2.1-packed.js',
-        'http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js'
     ];
 
     public $depends = [

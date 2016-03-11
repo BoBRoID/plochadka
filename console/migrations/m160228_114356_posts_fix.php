@@ -3,18 +3,16 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m151013_101422_username_for_author extends Migration
+class m160228_114356_posts_fix extends Migration
 {
     public function up()
     {
-        $this->addColumn('authors', 'username', \yii\db\mysql\Schema::TYPE_STRING.' NOT NULL');
+        $this->addColumn('posts', 'show', Schema::TYPE_SMALLINT.' UNSIGNED NOT NULL DEFAULT 0');
     }
 
     public function down()
     {
-        echo "m151013_101422_username_for_author cannot be reverted.\n";
-
-        return false;
+        return $this->dropColumn('posts', 'show');  
     }
 
     /*

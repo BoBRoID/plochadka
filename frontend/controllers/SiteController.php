@@ -10,6 +10,7 @@ use Yii;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use yii\base\InvalidParamException;
+use yii\data\ActiveDataProvider;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -93,8 +94,11 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index', [
-            'posts'         =>  Post::find()->all(),
-            'categories'    =>  Category::find()->where(['parent' => 0])->all()
+            'posts'             =>  Post::find()->all(),
+            'categories'        =>  Category::find()->where(['parent' => 0])->all(),
+            'postsDataProvider' =>  new ActiveDataProvider([
+                'query' =>  Post::find()
+            ])
         ]);
     }
 

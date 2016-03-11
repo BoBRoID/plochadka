@@ -14,6 +14,10 @@
  * @since FlatAds 1.0
  */
 
+use yii\bootstrap\Html;
+use yii\data\ArrayDataProvider;
+use yii\widgets\ListView;
+
 $js = <<<'SCRIPT'
 $('#projects-carousel').carouFredSel({
     auto: false,
@@ -35,6 +39,8 @@ SCRIPT;
 $this->registerJs($js);
 \frontend\assets\FeauteredAdsAsset::register($this);
 
+\rmrevin\yii\fontawesome\AssetBundle::register($this);
+
 ?>
 <?=\common\widgets\MapWidget::widget()?>
 
@@ -43,7 +49,7 @@ $this->registerJs($js);
         <h3><?=\Yii::t('site', 'Check out our Premium Featured Ads')?></h3>
         <div id="tabs" class="full">
             <ul class="tabs quicktabs-tabs quicktabs-style-nostyle">
-                <li class="grid-feat-ad-style"><a class="" href="#"><?=\Yii::t('site', 'Grid View')?></a></li>
+                <li class="grid-feat-ad-style"><a class="" href="#"><?=''?></a></li>
                 <li class="list-feat-ad-style"><a class="" href="#"><?=\Yii::t('site', 'List View')?></a></li>
             </ul>
 
@@ -53,107 +59,77 @@ $this->registerJs($js);
                     <a href="#" id="carousel-next"> <?=\Yii::t('site', 'Next')?> &#8594;</a>
                 </div>
 
-                <div id="projects-carousel">
-                    <?php foreach($posts as $post){ ?>
-                        <div class="ad-box span3">
-                            <a class="ad-image" href="/post/<?=$post->id?>">
-                                <img class="add-box-main-image" src="<?=''//$post->image?>">
-                            </a>
-
-                            <div class="ad-box-content">
-                                <span class="ad-category">
-                                    <div class="category-icon-box" style="background-color: #<?=$post->category_color?>;">
-                                        <?=$post->category_icon?>
-                                    </div>
-                                </span>
-
-                                <a href="/">
-                                    <?=$post->title?>
-                                </a>
-                                <div class="add-price">
-                                    <span><?=$post->price?></span>
-                                </div>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
+                <?=ListView::widget([
+                    'options'   =>  [
+                        'id'    =>  'projects-carousel',
+                    ],
+                    'itemOptions'   =>  [
+                        'class' =>  'ad-box span3'
+                    ],
+                    'summary'       =>  false,
+                    'dataProvider'  =>  $postsDataProvider,
+                    'itemView'      =>  function($post){
+                        return $this->render('index/_post_card', [
+                            'post'  =>  $post
+                        ]);
+                    }
+                ])?>
             </div>
 
-            <div class="pane">
-                <?php foreach($posts as $post){ ?>
-                    <div class="list-featured-ads">
-                        <div class="list-feat-ad-image">
-                            <a class="ad-image" href="/">
-                                <img class="add-box-main-image" src="<?=''//$post->image?>"/>
-                            </a>
-                        </div>
-                        <div class="list-feat-ad-content">
-                            <div class="list-feat-ad-title">
-                                <a href="/"><?=(strlen($post->title) > 50) ? substr($post->title,0,47).'...' : $post->title?></a>
-                                <div class="add-price"><span><?=$post->price?></span></div>
-                            </div>
-                            <div class="list-feat-ad-excerpt">
-                                <p>
-                                    <?=\common\helpers\TextHelper::limit_text($post->content, 20)?>
-                                </p>
-                            </div>
-                            <div class="read-more"><a href="/"><?=\Yii::t('site', 'Details')?></a></div>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
+            <?=ListView::widget([
+                'options'   =>  [
+                    'class' =>  'pane',
+                    'style' =>  'display: none'
+                ],
+                'summary'       =>  false,
+                'dataProvider'  =>  $postsDataProvider,
+                'itemView'      =>  function($post){
+                    return $this->render('index/_post_line', [
+                        'post'  =>  $post
+                    ]);
+                }
+            ])?>
         </div>
     </div>
 </section>
 <section id="categories-homepage">
     <div class="container">
-        <h3>Browse our 90 Ads from 8 Categories</h3>
+        <?=Html::tag('h3', \Yii::t('site', 'Browse our {adsCount} Ads from {categoriesCount, plural, one{one category} other{# categories}}', [
+            'adsCount'  =>  '22',
+            'categoriesCount'   =>  '1'
+        ]))?>
+
+        <?=ListView::widget([
+            'dataProvider'      =>  new ArrayDataProvider([
+                'models'        =>  $categories
+            ]),
+            'options'           =>  [
+                'class'     =>  'full'
+            ],
+            'summary'           =>  false,
+            'itemView'          =>  function($model, $key, $counter){
+                $counter = $counter - 1;
+
+                return $this->render('index/category', [
+                    'category'  =>  $model,
+                    'current'   =>  ($counter - 1)
+                ]);
+            }
+        ])?>
         <div class="full">
+
         <?php
         $current = 0;
+
+        \rmrevin\yii\fontawesome\cdn\AssetBundle::register($this);
+
         foreach($categories as $category){
-        ?>
-            <div class="category-box span3<?=($current%4 == 0 ? ' first' : '')?>">
-                <div class="category-header">
-        			<span class="category-icon">
-						<?php if(isset($category->icon_code)) { ?>
-                            <div class="category-icon-box" style="background-color: <?=$category->icon_code?>;"><?=$category->image?></div>
-                        <?php } ?>
-					</span>
 
-                    <span class="cat-title">
-                        <a href="<?=$category->link?>">
-                            <h4><?=$category->name?></h4>
-                        </a>
-                    </span>
+            echo $this->render('index/category', [
+                'category'  =>  $category,
+                'current'   =>  $current
+            ]);
 
-                    <span class="category-total"><h4><?=$category->postsCount?></h4></span>
-
-                </div>
-                <div class="category-content">
-                    <ul>
-                        <?php
-                        $subCategoryCount = 0;
-                        foreach($category->getSubcategories() as $subCategory){ ?>
-                            <li>
-                                <a href="<?=$subCategory->link?>" title="View posts in <?=$subCategory->name?>">
-                                    <?=(strlen($subCategory->name) > 30) ? substr($subCategory->name,0,27).'...' : $subCategory->name?>
-                                </a>
-                                <span class="category-counter"><?=$category->postsCount?></span>
-                            </li>
-                        <?php } ?>
-
-                        <?php if($subCategoryCount >= 5) { ?>
-
-                            <li>
-                                <a href="<?=$category->link?>">View all subcategories &rarr;</a>
-                            </li>
-
-                        <?php } ?>
-                    </ul>
-                </div>
-            </div>
-        <?php
         $current++;
         } ?>
         </div>
@@ -762,9 +738,11 @@ $this->registerJs($js);
             </div>
         </div>
     </section>
-    <script>
-        jQuery(function() {
-            jQuery("ul.tabs").tabs("> .pane", {effect: 'fade', fadeIn: 200});
-        });
-    </script>
 */?>
+
+
+<script>
+    jQuery(function() {
+        jQuery("ul.tabs").tabs("> .pane", {effect: 'fade', fadeIn: 200});
+    });
+</script>

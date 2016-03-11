@@ -1,20 +1,19 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
-class m151013_101422_username_for_author extends Migration
+class m160307_191732_category_clor extends Migration
 {
     public function up()
     {
-        $this->addColumn('authors', 'username', \yii\db\mysql\Schema::TYPE_STRING.' NOT NULL');
+        $this->addColumn('categories', 'color', \yii\db\Schema::TYPE_STRING);
     }
 
     public function down()
     {
-        echo "m151013_101422_username_for_author cannot be reverted.\n";
+        $this->dropColumn('categories', 'color');
 
-        return false;
+        return true;
     }
 
     /*
